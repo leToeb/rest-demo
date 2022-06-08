@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public class Guitar {
     
-    public final String id;
-    public String name;
+    private final String id;
+    private String name;
 
     public Guitar(String id, String name)
     {
