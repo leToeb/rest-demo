@@ -3,20 +3,20 @@ package com.example.restdemo;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 //Kalsse wird num in das Application-Environment einbezogen
-@ConfigurationProperties
+@ConfigurationProperties(prefix = "greeting")
 public class Greeting {
     
     private String lastName;
-    private String guitar;
+    private String lastGuitar;
 
     public String getLastName()
     {
         return this.lastName;
     }
 
-    public String getGuitar()
+    public String getLastGuitar()
     {
-        return this.guitar;
+        return this.lastGuitar;
     }
 
     public void setLastName(String lastName)
@@ -24,9 +24,9 @@ public class Greeting {
         this.lastName = lastName;
     }
 
-    public void setGuitar(String guitar)
+    public void setLastGuitar(String guitar)
     {
-        this.guitar = guitar;
+        this.lastGuitar = guitar;
     }
 
 }
