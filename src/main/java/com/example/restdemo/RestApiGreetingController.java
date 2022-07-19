@@ -20,16 +20,32 @@ public class RestApiGreetingController {
     @Value("${spring.application.name:demoservice_Vorgabewert}")
     private String appName;
 
+    //Membervariable für die Greeting Bean
+    public final Greeting greeting;
+
+    //Member Variable gür Greeting Bean wird über die Konstruktor Injection initialisiert
+    public RestApiGreetingController(Greeting greeting)
+    {
+        this.greeting = greeting;
+    }
+
     @GetMapping("/name")
     String getGreeting()
     {
         return name;
     }
 
-    @GetMapping("/person")
+    @GetMapping("/lastName")
+    String getLastName()
+    {
+        //Eigenschaft wird von der ConfigurationPropertie-Bean Greeting verwaltet
+        return greeting.getLastName();
+    }
+
+    @GetMapping("/lastPerson")
     String getNameAndPerson()
     {
-        return person;
+        return greeting.getLastPerson();
     }
 
     @GetMapping("/appname")
