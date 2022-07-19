@@ -7,16 +7,16 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class Greeting {
     
     private String lastName;
-    private String lastGuitar;
+    private String lastPerson;
 
     public String getLastName()
     {
         return this.lastName;
     }
 
-    public String getLastGuitar()
+    public String getLastPerson()
     {
-        return this.lastGuitar;
+        return this.lastPerson;
     }
 
     public void setLastName(String lastName)
@@ -24,9 +24,9 @@ public class Greeting {
         this.lastName = lastName;
     }
 
-    public void setLastGuitar(String guitar)
+    public void setLastPerson(String Person)
     {
-        this.lastGuitar = guitar;
+        this.lastPerson = Person;
     }
 
 }
