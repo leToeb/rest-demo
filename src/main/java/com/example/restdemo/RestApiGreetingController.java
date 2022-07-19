@@ -11,11 +11,11 @@ public class RestApiGreetingController {
     
     //Vorgabewert hinter dem :
     //wird genutzt, wenn die Variable greeting-name nicht im Environment definiert ist
-    @Value("${greeting-name:Mirage_Vorgabewert}")
+    @Value("${greeting-name:Greeting_Vorgabewert}")
     private String name;
 
-    @Value("${greeting-guitar:${greeting-name}_is_playing_a_Les_Paul_Vorgabewert}")
-    private String guitar;
+    @Value("${greeting-person:${greeting-name}_Vorgabewert}")
+    private String person;
 
     @Value("${spring.application.name:demoservice_Vorgabewert}")
     private String appName;
@@ -26,10 +26,10 @@ public class RestApiGreetingController {
         return name;
     }
 
-    @GetMapping("/guitar")
-    String getNameAndGuitar()
+    @GetMapping("/person")
+    String getNameAndPerson()
     {
-        return guitar;
+        return person;
     }
 
     @GetMapping("/appname")

@@ -9,23 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataLoader {
 
-    private final GuitarRepository guitarRepository;
+    private final PersonRepository personRepository;
 
-    public DataLoader(GuitarRepository guitarRepository){
+    public DataLoader(PersonRepository personRepository){
 
-        this.guitarRepository = guitarRepository;
+        this.personRepository = personRepository;
     }
 
     @PostConstruct
     private void loadData(){
 
-        this.guitarRepository.saveAll(List.of(
-            new Guitar("Les Paul"),
-            new Guitar("Telecaster"),
-            new Guitar("Stratocaster"),
-            new Guitar("Firebird"),
-            new Guitar("T-Bird"),
-            new Guitar("Guitar aus dem DataLoader")
+        this.personRepository.saveAll(List.of(
+            new Person("Paul"),
+            new Person("Peter"),
+            new Person("Inge"),
+            new Person("Hans"),
+            new Person("Marie"),
+            new Person("Person X aus dem DataLoader")
         ));
 
     }

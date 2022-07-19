@@ -5,9 +5,9 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-//JPA Annotation für die Datenpank. Guitar ist damit eine gültige JPA Entität
+//JPA Annotation für die Datenpank. Person ist damit eine gültige JPA Entität
 @Entity
-public class Guitar {
+public class Person {
     
     //JPA Annotation zur kennzeichung des DB Identifiers
     @Id
@@ -16,19 +16,19 @@ public class Guitar {
     private String id;
     private String name;
 
-    public Guitar(String id, String name)
+    public Person(String id, String name)
     {
         this.id = id;
         this.name = name;
     }
 
-    public Guitar(String name)
+    public Person(String name)
     {
         this(UUID.randomUUID().toString(), name);
     }
 
     //Konstruktor ohne Argumente für die JPA
-    public Guitar()
+    public Person()
     {
 
     }

@@ -14,111 +14,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/guitar")
+@RequestMapping("/person")
 public class RestApiDemoController {
     
-    //zugriff auf die DB über die Repo-API
-    private final GuitarRepository guitarRepository;
+    //Zugriff auf die DB über die Repo-API
+    private final PersonRepository personRepository;
 
-    //wid als DB ersatz nicht mehr gebraucht, da nun eine DB angeschlossen wurde
-    //0private List<Guitar> guitars = new ArrayList<>();
-
-    //das GuitarRepository ist eine Spring Bean, die automatisch verdrathet wird
-    public RestApiDemoController(GuitarRepository guitarRepository)
+    //das PersonRepository ist eine Spring Bean, die automatisch verdrathet wird
+    public RestApiDemoController(PersonRepository personRepository)
     {
-        this.guitarRepository = guitarRepository;
-    // Die Daten werden für das GuitarRepository nun über den DataLoader erstellt.
-    //    this.guitarRepository.saveAll(List.of(
-    //        new Guitar("Les Paul"),
-    //        new Guitar("Telecaster"),
-    //        new Guitar("Stratocaster"),
-    //        new Guitar("Firebird"),
-    //        new Guitar("T-Bird")
-    //    ));
+        this.personRepository = personRepository;
     }
-
-    //public RestApiDemoController()
-    //{
-    //    this.guitars.addAll(List.of(
-    //        new Guitar("Les Paul"),
-    //        new Guitar("Telecaster"),
-    //        new Guitar("Stratocaster"),
-    //        new Guitar("Firebird"),
-    //        new Guitar("T-Bird")
-    //    ));
-    //}
-    
-
 
     //alternativ kann auch folgende genauere Annotation für das RequestMapping genutzt werden
     //wenn die Requestmethode nicht über eine genauere Annotion bestimmt wurde
-    //@RequestMapping(value = "/guitar", method = RequestMethod.GET)
-    //Iterable<Guitar> getGuitar()
+    //@RequestMapping(value = "/person", method = RequestMethod.GET)
+    //Iterable<Person> getPerson()
     //{
-    //    return guitars;
+    //    return person;
     //}
 
-    //Value muss nicht mehr angegeben werden, weil der Endpoint schon in der Obersten Annotation der Klasse beschrieben wurde
-    //@GetMapping(value = "/guitar")
+    //Value muss nicht mehr angegeben werden, weil der Endpoint schon in der obersten Annotation der Klasse beschrieben wurde
+    //@GetMapping(value = "/person")
     @GetMapping
-    Iterable<Guitar> getGuitar()
+    Iterable<Person> getPerson()
     {
-        //return guitars;
-        return guitarRepository.findAll();
+        return personRepository.findAll();
     }
 
     //genaues Abrufen eines Datensatzes über die URI-Variable "id"
     @GetMapping(value = "/{id}")
-    Optional<Guitar> getGuiterById(@PathVariable String id)
+    Optional<Person> getGuiterById(@PathVariable String id)
     {
-        //for (Guitar guitar : guitars) {
-        //    if(guitar.getId().equals(id))
-        //    {
-        //        return Optional.of(guitar);
-        //    }
-        //}
-
-        //return Optional.empty();
-        return guitarRepository.findById(id);
+        return personRepository.findById(id);
     }
 
     @PostMapping
-    Guitar postGuitar(@RequestBody Guitar guitar)
+    Person postPerson(@RequestBody Person person)
     {
-        //guitars.add(guitar);
-        //return guitar;
         //Für POST ist es empfohlen auch einen HTTP Status für den Response zurück zu geben. Vgl PUT
-
-        return guitarRepository.save(guitar);
+        return personRepository.save(person);
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Guitar> putGuitar(@PathVariable String id, @RequestBody Guitar guitar)
+    ResponseEntity<Person> putPerson(@PathVariable String id, @RequestBody Person person)
     {
-        //int guitarIndex = -1;
-
-        //for (Guitar g : guitars) {
-        //   if(g.getId().equals(id))
-        //    {
-        //        guitarIndex = guitars.indexOf(g);
-        //        guitars.set(guitarIndex, guitar);
-        //    }
-        //}
-        
-        //Bei Put Request muss ein HTTP Statuscode für den Response inplementiert werden
-        //return (guitarIndex == -1) ? new ResponseEntity<Guitar>(postGuitar(guitar), HttpStatus.CREATED)  : new ResponseEntity<Guitar>(guitar, HttpStatus.OK);
-            
-        return (guitarRepository.existsById(id) ? new ResponseEntity<Guitar>(guitarRepository.save(guitar), HttpStatus.OK)  : new ResponseEntity<Guitar>(guitarRepository.save(guitar), HttpStatus.CREATED));
+        //Bei Put Request muss ein HTTP Statuscode für den Response inplementiert werden          
+        return (personRepository.existsById(id) ? new ResponseEntity<Person>(personRepository.save(person), HttpStatus.OK)  : new ResponseEntity<Person>(personRepository.save(person), HttpStatus.CREATED));
     }
 
     @DeleteMapping("/{id}")
-    void deleteGuitar(@PathVariable String id)
+    void deletePerson(@PathVariable String id)
     {
-        //removeIf gibt true zurück, wenn das entfernen erfolgriech war
-        //guitars.removeIf(o -> o.getId().equals(id));
-        //Für DELETE ist es empfohlen auch einen HTTP Status für den Response zurück zu geben. Vgl PUT
-        
-        guitarRepository.deleteById(id);
+        //removeIf gibt true zurück, wenn das Entfernen erfolgriech war
+        //Für DELETE ist es empfohlen auch einen HTTP Status für den Response zurück zu geben. Vgl PUT  
+        personRepository.deleteById(id);
     }
 
 }
