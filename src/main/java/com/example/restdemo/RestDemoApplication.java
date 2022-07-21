@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 
+import com.example.restdemo.entity.DrittanbieterMock;
+
 @SpringBootApplication
 //Hinzufügen von @ConfigurationProperties Klassen zum Applikationsenvironment. Z.B: die Klasse Greeting
 @ConfigurationPropertiesScan
@@ -22,4 +24,5 @@ public class RestDemoApplication {
 	{
 		return new DrittanbieterMock();
 	}
+
 }

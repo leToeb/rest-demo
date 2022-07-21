@@ -1,4 +1,4 @@
-package com.example.restdemo;
+package com.example.restdemo.boundary;
 
 import java.util.Optional;
 
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.restdemo.control.PersonService;
+import com.example.restdemo.entity.Person;
+import com.example.restdemo.entity.PersonRepository;
+
 @RestController
 @RequestMapping("/person")
 public class RestApiDemoController {
@@ -21,9 +25,9 @@ public class RestApiDemoController {
     private final PersonRepository personRepository;
 
     //das PersonRepository ist eine Spring Bean, die automatisch verdrathet wird
-    public RestApiDemoController(PersonRepository personRepository)
+    public RestApiDemoController(PersonService personRepository)
     {
-        this.personRepository = personRepository;
+        this.personRepository = personRepository.getRepository();
     }
 
     //alternativ kann auch folgende genauere Annotation für das RequestMapping genutzt werden

@@ -1,9 +1,11 @@
-package com.example.restdemo;
+package com.example.restdemo.boundary;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.restdemo.entity.Greeting;
 
 @RestController
 @RequestMapping("/greeting")
