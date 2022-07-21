@@ -4,10 +4,6 @@ Sie soll die Grundlagen von Spring Boot vermitteln und trainieren.
 Sie bietet verschiedene REST Endpunkte an, um Personen aus einer Datenbank zu laden, sie zu speichern, zu verändern oder zu löschen.
 Daneben bietet sie verschiedene REST Endpunkte an, um Properties aus dem Application Environment abzurufen. 
 
-# Bauen der Anwendung und starten der Anwendung
-1. JAR-Archive erzeugen: `mvn clean build`
-2. JAR-Archive starten: `java -jar ./target/rest-demo-0.0.1-SNAPSHOT.jar`
-
 # Verwendete Technologien
 - Spring REST
 - Spring Data
