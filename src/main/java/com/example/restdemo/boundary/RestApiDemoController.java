@@ -1,8 +1,8 @@
 package com.example.restdemo.boundary;
 
+import java.net.URI;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,64 +15,49 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.restdemo.control.PersonService;
 import com.example.restdemo.entity.Person;
-import com.example.restdemo.entity.PersonRepository;
 
 @RestController
 @RequestMapping("/person")
 public class RestApiDemoController {
     
-    //Zugriff auf die DB über die Repo-API
-    private final PersonRepository personRepository;
+    private final PersonService personService;
 
-    //das PersonRepository ist eine Spring Bean, die automatisch verdrathet wird
-    public RestApiDemoController(PersonService personRepository)
+    public RestApiDemoController(PersonService personService)
     {
-        this.personRepository = personRepository.getRepository();
+        this.personService = personService;
     }
 
-    //alternativ kann auch folgende genauere Annotation für das RequestMapping genutzt werden
-    //wenn die Requestmethode nicht über eine genauere Annotion bestimmt wurde
-    //@RequestMapping(value = "/person", method = RequestMethod.GET)
-    //Iterable<Person> getPerson()
-    //{
-    //    return person;
-    //}
-
-    //Value muss nicht mehr angegeben werden, weil der Endpoint schon in der obersten Annotation der Klasse beschrieben wurde
-    //@GetMapping(value = "/person")
     @GetMapping
-    Iterable<Person> getPerson()
+    ResponseEntity<Iterable<Person>> getPerson()
     {
-        return personRepository.findAll();
+        return ResponseEntity.ok(personService.findAll());
     }
 
-    //genaues Abrufen eines Datensatzes über die URI-Variable "id"
     @GetMapping(value = "/{id}")
-    Optional<Person> getGuiterById(@PathVariable String id)
+    ResponseEntity<Person> getGuiterById(@PathVariable String id)
     {
-        return personRepository.findById(id);
+        Optional<Person> personOptional = this.personService.findById(id);
+        return personOptional.isPresent() ? ResponseEntity.ok(personOptional.get()) : ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    Person postPerson(@RequestBody Person person)
+    ResponseEntity<Person> postPerson(@RequestBody Person person)
     {
-        //Für POST ist es empfohlen auch einen HTTP Status für den Response zurück zu geben. Vgl PUT
-        return personRepository.save(person);
+        return ResponseEntity.created(URI.create(String.format("/person/%s", person.getId())))
+                .body(personService.save(person));
     }
 
     @PutMapping("/{id}")
     ResponseEntity<Person> putPerson(@PathVariable String id, @RequestBody Person person)
     {
-        //Bei Put Request muss ein HTTP Statuscode für den Response inplementiert werden          
-        return (personRepository.existsById(id) ? new ResponseEntity<Person>(personRepository.save(person), HttpStatus.OK)  : new ResponseEntity<Person>(personRepository.save(person), HttpStatus.CREATED));
+        Person updatedPerson = this.personService.update(id, person);
+        return updatedPerson == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(updatedPerson);
     }
 
     @DeleteMapping("/{id}")
-    void deletePerson(@PathVariable String id)
+    ResponseEntity deletePerson(@PathVariable String id)
     {
-        //removeIf gibt true zurück, wenn das Entfernen erfolgriech war
-        //Für DELETE ist es empfohlen auch einen HTTP Status für den Response zurück zu geben. Vgl PUT  
-        personRepository.deleteById(id);
+        return this.personService.delete(id) ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
     }
 
 }

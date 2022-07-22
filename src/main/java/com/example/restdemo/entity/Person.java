@@ -5,14 +5,10 @@ import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-//JPA Annotation für die Datenpank. Person ist damit eine gültige JPA Entität
 @Entity
 public class Person {
     
-    //JPA Annotation zur kennzeichung des DB Identifiers
     @Id
-    //keine final Menber bei Konstriktoren ohne Argumente
-    //private final String id;
     private String id;
     private String name;
 
@@ -27,7 +23,6 @@ public class Person {
         this(UUID.randomUUID().toString(), name);
     }
 
-    //Konstruktor ohne Argumente für die JPA
     public Person()
     {
 
