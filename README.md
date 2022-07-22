@@ -2,7 +2,6 @@
 Dies ist eine erste REST-Applikation zu Übungszwecken. 
 Sie soll die Grundlagen von Spring Boot vermitteln und trainieren.
 Sie bietet verschiedene REST Endpunkte an, um Personen aus einer Datenbank zu laden, sie zu speichern, zu verändern oder zu löschen.
-Daneben bietet sie verschiedene REST Endpunkte an, um Properties aus dem Application Environment abzurufen. 
 
 # Verwendete Technologien
 - Spring REST
